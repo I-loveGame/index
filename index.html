@@ -22,6 +22,17 @@
         }
         button {
             padding: 10px 20px;
+            margin-top: 10px;
+        }
+        .user-info {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .user-info img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
         }
     </style>
 </head>
@@ -29,16 +40,44 @@
     <h1>Введите ваш Steam ID</h1>
     <input type="text" id="steamId" placeholder="Steam ID (17 цифр)">
     <button id="submitButton">Отправить</button>
+    
+    <div class="user-info" id="userInfo">
+        <h2>Это ваш аккаунт?</h2>
+        <img id="avatar" src="" alt="Avatar">
+        <p id="realName"></p>
+        <p id="nickname"></p>
+        <button id="confirmButton">Подтвердить</button>
+    </div>
 
     <script>
         document.getElementById('submitButton').onclick = function() {
             const steamId = document.getElementById('steamId').value;
             if (steamId.length === 17 && /^\d+$/.test(steamId)) {
-                // Отправляем Steam ID обратно в Telegram
-                window.Telegram.WebApp.sendData(steamId);
+                fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=YOUR_STEAM_API_KEY&steamids=${steamId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const player = data.response.players[0];
+                    if (player) {
+                        document.getElementById('avatar').src = player.avatar;
+                        document.getElementById('realName').innerText = `Реальное имя: ${player.realname || 'Не указано'}`;
+                        document.getElementById('nickname').innerText = `Никнейм: ${player.personaname}`;
+                        document.getElementById('userInfo').style.display = 'block';
+                    } else {
+                        alert('Не удалось получить информацию о пользователе.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    alert('Произошла ошибка при получении данных. Попробуйте позже.');
+                });
             } else {
                 alert('Пожалуйста, введите корректный Steam ID (17 цифр).');
             }
+        };
+
+        document.getElementById('confirmButton').onclick = function() {
+            const steamId = document.getElementById('steamId').value;
+            window.Telegram.WebApp.sendData(steamId);
         };
     </script>
 </body>
