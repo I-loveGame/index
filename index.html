@@ -54,7 +54,12 @@
             const steamId = document.getElementById('steamId').value;
             if (steamId.length === 17 && /^\d+$/.test(steamId)) {
                 fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=F8A10F215FECA2977A762232DEA544F3&steamids=${steamId}`)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Сеть не в порядке или API недоступно');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     const player = data.response.players[0];
                     if (player) {
@@ -68,7 +73,7 @@
                 })
                 .catch(error => {
                     console.error('Ошибка:', error);
-                    alert('Произошла ошибка при получении данных. Попробуйте позже.');
+                    alert('Произошла ошибка при получении данных. Попробуйте позже. ' + error.message);
                 });
             } else {
                 alert('Пожалуйста, введите корректный Steam ID (17 цифр).');
