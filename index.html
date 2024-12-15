@@ -51,7 +51,7 @@
         document.getElementById('submitButton').onclick = function() {
             const steamId = document.getElementById('steamId').value;
             if (steamId.length === 17 && /^\d+$/.test(steamId)) {
-                // Отправляем Steam ID в Telegram бота
+                console.log('Отправка Steam ID:', steamId); // Логируем отправляемый ID
                 window.Telegram.WebApp.sendData(steamId);
             } else {
                 alert('Пожалуйста, введите корректный Steam ID (17 цифр).');
