@@ -24,15 +24,11 @@
             padding: 10px 20px;
             margin-top: 10px;
         }
-        .user-info {
+        .success-message {
             display: none;
             margin-top: 20px;
-            text-align: center;
-        }
-        .user-info img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
+            font-size: 18px;
+            color: green;
         }
     </style>
 </head>
@@ -40,26 +36,24 @@
     <h1>Введите ваш Steam ID</h1>
     <input type="text" id="steamId" placeholder="Steam ID (17 цифр)">
     <button id="submitButton">Отправить</button>
-    <div class="user-info" id="userInfo">
-        <h2>Это ваш аккаунт?</h2>
-        <img id="avatar" src="" alt="Avatar">
-        <p id="realName"></p>
-        <p id="nickname"></p>
-        <button id="confirmButton">Подтвердить</button>
-    </div>
+    <div class="success-message" id="successMessage">Steam ID успешно отправлен!</div>
+    
     <script>
         document.getElementById('submitButton').onclick = function() {
             const steamId = document.getElementById('steamId').value;
             if (steamId.length === 17 && /^\d+$/.test(steamId)) {
                 console.log('Отправка Steam ID:', steamId); // Логируем отправляемый ID
                 window.Telegram.WebApp.sendData(steamId);
+                
+                // Скрываем поле ввода и кнопку
+                document.getElementById('steamId').style.display = 'none';
+                document.getElementById('submitButton').style.display = 'none';
+                
+                // Показываем сообщение об успешной отправке
+                document.getElementById('successMessage').style.display = 'block';
             } else {
                 alert('Пожалуйста, введите корректный Steam ID (17 цифр).');
             }
-        };
-
-        document.getElementById('confirmButton').onclick = function() {
-            // Логика подтверждения (если нужно)
         };
     </script>
 </body>
