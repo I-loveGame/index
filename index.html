@@ -66,25 +66,27 @@
     <div id="successMessage">✅ Steam ID успешно отправлен!</div>
 
     <script>
-        // Проверка поддержки WebApp
+        // Проверка наличия Telegram WebApp API
         if (window.Telegram && window.Telegram.WebApp) {
-            console.log("Telegram WebApp доступен");
-            window.Telegram.WebApp.ready();
+            console.log("Telegram WebApp успешно инициализирован");
+            Telegram.WebApp.ready();
         } else {
-            alert("WebApp не запущен через Telegram!");
+            alert("WebApp должен быть открыт в Telegram!");
         }
 
+        // Функция отправки данных
         function sendData() {
-            const steamId = document.getElementById("steamIdInput").value;
+            const steamIdInput = document.getElementById("steamIdInput");
+            const steamId = steamIdInput.value;
 
             if (steamId.length === 17 && !isNaN(steamId)) {
                 const data = JSON.stringify({ steam_id: steamId });
                 console.log("Отправка данных:", data);
 
-                // Отправка данных боту через Telegram WebApp
-                window.Telegram.WebApp.sendData(data);
+                // Отправляем данные в бота через WebApp
+                Telegram.WebApp.sendData(data);
 
-                // Блокировка кнопки и вывод сообщения
+                // Блокировка кнопки и отображение сообщения
                 document.getElementById("sendButton").disabled = true;
                 document.getElementById("successMessage").style.display = "block";
             } else {
