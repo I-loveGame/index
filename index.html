@@ -61,12 +61,14 @@
     <div id="successMessage">✅ Steam ID успешно отправлен!</div>
 
     <script>
-        // Проверка наличия Telegram WebApp API
-        if (window.Telegram && window.Telegram.WebApp) {
-            Telegram.WebApp.ready();
-            console.log("Telegram WebApp успешно загружен!");
+        let tg = window.Telegram ? window.Telegram.WebApp : null;
+
+        if (tg) {
+            tg.ready();
+            console.log("WebApp API доступно.");
         } else {
-            alert("⚠️ WebApp должен быть открыт внутри Telegram!");
+            document.body.innerHTML = "<h1>⚠️ Ошибка: WebApp должен быть открыт через Telegram!</h1>";
+            throw new Error("Telegram WebApp API не доступно.");
         }
 
         const sendButton = document.getElementById("sendButton");
@@ -77,7 +79,7 @@
 
             if (steamId.length === 17 && !isNaN(steamId)) {
                 // Отправка данных в Telegram WebApp
-                Telegram.WebApp.sendData(JSON.stringify({ steam_id: steamId }));
+                tg.sendData(JSON.stringify({ steam_id: steamId }));
                 console.log("Отправлены данные:", steamId);
 
                 // Блокируем кнопку и показываем сообщение
