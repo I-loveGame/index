@@ -66,13 +66,22 @@
     <div id="successMessage">✅ Steam ID успешно отправлен!</div>
 
     <script>
+        // Проверка поддержки WebApp
+        if (window.Telegram && window.Telegram.WebApp) {
+            console.log("Telegram WebApp доступен");
+            window.Telegram.WebApp.ready();
+        } else {
+            alert("WebApp не запущен через Telegram!");
+        }
+
         function sendData() {
             const steamId = document.getElementById("steamIdInput").value;
 
             if (steamId.length === 17 && !isNaN(steamId)) {
                 const data = JSON.stringify({ steam_id: steamId });
+                console.log("Отправка данных:", data);
 
-                // Отправка данных в Telegram через WebApp
+                // Отправка данных боту через Telegram WebApp
                 window.Telegram.WebApp.sendData(data);
 
                 // Блокировка кнопки и вывод сообщения
@@ -82,9 +91,6 @@
                 alert("⚠️ Введите корректный Steam ID (17 цифр).");
             }
         }
-
-        // Инициализация WebApp
-        window.Telegram.WebApp.ready();
     </script>
 </body>
 </html>
