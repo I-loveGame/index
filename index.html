@@ -45,12 +45,25 @@
         button:hover {
             background-color: #145dbf;
         }
+
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        #successMessage {
+            display: none;
+            font-size: 20px;
+            color: #4CAF50;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <h1>Введите свой Steam ID</h1>
     <input type="text" id="steamIdInput" placeholder="Введите Steam ID (17 цифр)">
-    <button onclick="sendData()">Отправить</button>
+    <button id="sendButton" onclick="sendData()">Отправить</button>
+    <div id="successMessage">✅ Steam ID успешно отправлен!</div>
 
     <script>
         function sendData() {
@@ -61,6 +74,10 @@
 
                 // Отправка данных в Telegram через WebApp
                 window.Telegram.WebApp.sendData(data);
+
+                // Блокировка кнопки и вывод сообщения
+                document.getElementById("sendButton").disabled = true;
+                document.getElementById("successMessage").style.display = "block";
             } else {
                 alert("⚠️ Введите корректный Steam ID (17 цифр).");
             }
