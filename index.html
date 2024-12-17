@@ -39,11 +39,6 @@
             font-size: 18px;
             padding: 10px 20px;
             cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #145dbf;
         }
 
         button:disabled {
@@ -62,37 +57,36 @@
 <body>
     <h1>Введите свой Steam ID</h1>
     <input type="text" id="steamIdInput" placeholder="Введите Steam ID (17 цифр)">
-    <button id="sendButton" onclick="sendData()">Отправить</button>
+    <button id="sendButton">Отправить</button>
     <div id="successMessage">✅ Steam ID успешно отправлен!</div>
 
     <script>
         // Проверка наличия Telegram WebApp API
         if (window.Telegram && window.Telegram.WebApp) {
-            console.log("Telegram WebApp успешно инициализирован");
             Telegram.WebApp.ready();
+            console.log("Telegram WebApp успешно загружен!");
         } else {
-            alert("WebApp должен быть открыт в Telegram!");
+            alert("⚠️ WebApp должен быть открыт внутри Telegram!");
         }
 
-        // Функция отправки данных
-        function sendData() {
-            const steamIdInput = document.getElementById("steamIdInput");
-            const steamId = steamIdInput.value;
+        const sendButton = document.getElementById("sendButton");
+        const successMessage = document.getElementById("successMessage");
+
+        sendButton.addEventListener("click", () => {
+            const steamId = document.getElementById("steamIdInput").value;
 
             if (steamId.length === 17 && !isNaN(steamId)) {
-                const data = JSON.stringify({ steam_id: steamId });
-                console.log("Отправка данных:", data);
+                // Отправка данных в Telegram WebApp
+                Telegram.WebApp.sendData(JSON.stringify({ steam_id: steamId }));
+                console.log("Отправлены данные:", steamId);
 
-                // Отправляем данные в бота через WebApp
-                Telegram.WebApp.sendData(data);
-
-                // Блокировка кнопки и отображение сообщения
-                document.getElementById("sendButton").disabled = true;
-                document.getElementById("successMessage").style.display = "block";
+                // Блокируем кнопку и показываем сообщение
+                sendButton.disabled = true;
+                successMessage.style.display = "block";
             } else {
                 alert("⚠️ Введите корректный Steam ID (17 цифр).");
             }
-        }
+        });
     </script>
 </body>
 </html>
