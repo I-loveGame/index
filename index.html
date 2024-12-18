@@ -80,9 +80,10 @@
             if (steamId.length === 17 && !isNaN(steamId)) {
                 // Отправка данных в Telegram WebApp
                  if (tg) {
-                      let data = JSON.stringify({ steam_id: steamId });
-                      tg.sendData(JSON.stringify(data));
-                      console.log("Отправлены данные:", steamId);
+                      let data = { steam_id: steamId }; // Создаём объект
+                      let jsonString = JSON.stringify(data)
+                      tg.sendData(jsonString); // Отправляем JSON строку
+                      console.log("Отправлены данные:", jsonString); // Логируем строку
                  } else {
                       console.log("Data would be sent, but WebApp API not available.");
                  }
