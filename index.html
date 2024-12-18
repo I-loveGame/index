@@ -6,29 +6,43 @@
     <title>Steam ID Input</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Центрирование по вертикали */
+            align-items: center; /* Центрирование по горизонтали */
+            min-height: 100vh; /* Занимает всю высоту экрана */
             background-color: #121212;
             color: white;
             margin: 0;
-            padding: 0;
+            padding: 20px; /* Добавляет отступы */
         }
 
         h1 {
-            margin-top: 50px;
             font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .input-container {
+           display: flex;
+           flex-direction: column;
+           width: 100%;
+           max-width: 400px;
+           align-items: center;
+           margin-bottom: 30px;
         }
 
         input {
-            padding: 10px;
+            padding: 12px;
             font-size: 18px;
-            margin: 20px auto;
-            display: block;
-            width: 80%;
-            max-width: 400px;
+            width: 100%;
             border-radius: 8px;
-            border: none;
+            border: 1px solid #333;
+            background-color: #212121;
+            color: white;
             outline: none;
+            margin-bottom: 15px; /* Расстояние между input и кнопкой */
+            box-sizing: border-box; /* Чтобы padding не увеличивал ширину */
         }
 
         button {
@@ -37,8 +51,12 @@
             border: none;
             border-radius: 8px;
             font-size: 18px;
-            padding: 10px 20px;
+            padding: 12px 24px; /* padding кнопки */
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0f5cb6;
         }
 
         button:disabled {
@@ -46,23 +64,27 @@
             cursor: not-allowed;
         }
 
+
         #successMessage {
             display: none;
             font-size: 20px;
             color: #4CAF50;
             margin-top: 20px;
         }
+
     </style>
 </head>
 <body>
     <h1>Введите свой Steam ID</h1>
-    <input type="text" id="steamIdInput" placeholder="Введите Steam ID (17 цифр)">
-    <button id="sendButton">Отправить</button>
+    <div class="input-container">
+        <input type="text" id="steamIdInput" placeholder="Введите Steam ID (17 цифр)">
+        <button id="sendButton">Отправить</button>
+    </div>
     <div id="successMessage">✅ Steam ID успешно отправлен!</div>
 
     <script>
-        // Убрана проверка наличия Telegram WebApp API
-        let tg = window.Telegram ? window.Telegram.WebApp : null;
+        // Получаем объект WebApp API от Telegram
+        const tg = window.Telegram ? window.Telegram.WebApp : null;
 
         if (tg) {
              tg.ready();
@@ -71,22 +93,27 @@
             console.log("Telegram WebApp API might not be available");
         }
 
+        // Получаем элементы DOM
         const sendButton = document.getElementById("sendButton");
         const successMessage = document.getElementById("successMessage");
+        const steamIdInput = document.getElementById("steamIdInput");
 
+        // Добавляем обработчик события на кнопку
         sendButton.addEventListener("click", () => {
-            const steamId = document.getElementById("steamIdInput").value;
+            const steamId = steamIdInput.value; // Получаем значение из input
 
+            // Проверяем, что Steam ID состоит из 17 цифр
             if (steamId.length === 17 && !isNaN(steamId)) {
-                // Отправка данных в Telegram WebApp
+                // Создаём объект с данными
+                const data = { steam_id: steamId };
+                const jsonString = JSON.stringify(data);
+
                  if (tg) {
-                      let data = { steam_id: steamId }; // Создаём объект
-                      let jsonString = JSON.stringify(data)
-                      tg.sendData(jsonString); // Отправляем JSON строку
-                      console.log("Отправлены данные:", jsonString); // Логируем строку
-                 } else {
-                      console.log("Data would be sent, but WebApp API not available.");
-                 }
+                     tg.sendData(jsonString); // Отправляем данные в Telegram
+                     console.log("Отправлены данные:", jsonString);
+                  } else {
+                     console.log("Data would be sent, but WebApp API not available.");
+                  }
                 // Блокируем кнопку и показываем сообщение
                 sendButton.disabled = true;
                 successMessage.style.display = "block";
