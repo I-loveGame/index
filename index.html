@@ -5,7 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam ID Input</title>
     <style>
-        /* Ваши стили здесь */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Центрирование по вертикали */
+            align-items: center; /* Центрирование по горизонтали */
+            min-height: 100vh; /* Занимает всю высоту экрана */
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 20px; /* Добавляет отступы */
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .input-container {
+           display: flex;
+           flex-direction: column;
+           width: 100%;
+           max-width: 400px;
+           align-items: center;
+           margin-bottom: 30px;
+        }
+
+        input {
+            padding: 12px;
+            font-size: 18px;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background-color: #212121;
+            color: white;
+            outline: none;
+            margin-bottom: 15px; /* Расстояние между input и кнопкой */
+            box-sizing: border-box; /* Чтобы padding не увеличивал ширину */
+        }
+
+        button {
+            background-color: #1b74e4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            padding: 12px 24px; /* padding кнопки */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0f5cb6;
+        }
+
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+
+        #successMessage {
+            display: none;
+            font-size: 20px;
+            color: #4CAF50;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -15,18 +80,25 @@
         <button id="sendButton">Отправить</button>
     </div>
     <div id="successMessage">✅ Steam ID успешно отправлен!</div>
+
     <script>
         const tg = window.Telegram ? window.Telegram.WebApp : null;
+
         if (tg) {
-            tg.ready();
+             tg.ready();
+             console.log("WebApp API is assumed to be available.");
+        } else {
+            console.log("Telegram WebApp API might not be available");
         }
         const sendButton = document.getElementById("sendButton");
         const successMessage = document.getElementById("successMessage");
         const steamIdInput = document.getElementById("steamIdInput");
-
+         console.log("sendButton:", sendButton);
+         console.log("steamIdInput:", steamIdInput);
         sendButton.addEventListener("click", () => {
+             console.log("Кнопка отправки нажата!");
             const steamId = steamIdInput.value.trim();
-            if (steamId.length === 17 && !isNaN(steamId)) {
+              if (steamId.length === 17 && !isNaN(steamId)) {
                 const data = { steam_id: steamId };
                 const jsonString = JSON.stringify(data);
                 if (tg) {
@@ -39,7 +111,7 @@
             } else {
                 alert("⚠️ Введите корректный Steam ID (17 цифр).");
             }
-        });
+         });
     </script>
 </body>
 </html>
