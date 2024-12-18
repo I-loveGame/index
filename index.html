@@ -61,15 +61,16 @@
     <div id="successMessage">✅ Steam ID успешно отправлен!</div>
 
     <script>
-        let tg = window.Telegram ? window.Telegram.WebApp : null;
+        let tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 
-        if (tg) {
-            tg.ready();
-            console.log("WebApp API доступно.");
-        } else {
-            document.body.innerHTML = "<h1>⚠️ Ошибка: WebApp должен быть открыт через Telegram!</h1>";
-            throw new Error("Telegram WebApp API не доступно.");
-        }
+if (tg) {
+    tg.ready();
+    console.log("WebApp API доступно.");
+} else {
+    // Если объект Telegram.WebApp не доступен, значит приложение открыто не через Telegram
+    // Можно показать альтернативный контент или сообщение об ошибке
+    document.body.innerHTML = "<h1>⚠️ Ошибка: WebApp должен быть открыт через Telegram!</h1>";
+}
 
         const sendButton = document.getElementById("sendButton");
         const successMessage = document.getElementById("successMessage");
