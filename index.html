@@ -15,9 +15,9 @@
             background-color: #f0f0f0;
             margin: 0;
             padding: 20px;
+            transition: opacity 0.3s ease; /* Добавляем анимацию */
         }
-
-        #container {
+          #container {
             width: 300px;
             padding: 20px;
             border: 1px solid #ccc;
@@ -25,6 +25,7 @@
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
+            transition: transform 0.3s ease; /* Добавляем анимацию */
         }
 
         h1 {
@@ -57,25 +58,54 @@
         }
 
         #steamInfo {
-            margin-top: 15px;
-             text-align: center;
-         }
+             margin-top: 15px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
 
-         #steamInfo img {
-             width: 100px;
-              height: 100px;
-             border-radius: 50%;
-         }
-
-          #confirmButton {
-            display: none;
-            background-color: #007bff;
-           margin-top: 15px;
-           }
-
-          #confirmButton:hover {
-            background-color: #0056b3;
         }
+          #instructionButton {
+           position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+             border: none;
+            cursor: pointer;
+            font-size: 18px;
+         }
+
+        #backButton {
+          position: absolute;
+            top: 10px;
+           left: 10px;
+            background: none;
+             border: none;
+             cursor: pointer;
+            font-size: 18px;
+            display: none;
+        }
+
+        #backButton:hover, #instructionButton:hover {
+            opacity: 0.8;
+        }
+
+
+        .instruction-screen {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            overflow-y: auto;
+           text-align: center;
+        }
+        .instruction-screen p{
+           margin-top: 20px;
+        }
+
         #result {
             margin-top: 10px;
             text-align: center;
@@ -85,14 +115,24 @@
     </style>
 </head>
 <body>
+    <button id="backButton">&larr;</button>
+    <button id="instructionButton">?</button>
+
     <div id="container">
-        <h1>Проверка Steam ID</h1>
-        <input type="text" id="steamIdInput" placeholder="Введите Steam ID">
-        <button id="checkButton">Проверить</button>
-        <div id="result"></div>
+          <h1>Проверка Steam ID</h1>
+         <input type="text" id="steamIdInput" placeholder="Введите Steam ID">
+          <button id="checkButton">Проверить</button>
+           <div id="result"></div>
         <div id="steamInfo"></div>
-         <button id="confirmButton">Это мой аккаунт</button>
     </div>
+    <div class="instruction-screen" id="instructionScreen">
+          <h2>Как найти свой Steam ID</h2>
+          <p>1. Запустите Steam клиент.</p>
+         <p>2. Перейдите в "Профиль".</p>
+           <p>3. Нажмите "Редактировать профиль".</p>
+         <p>4.  Прокрутите вниз до конца.</p>
+         <p>5. Там будет указан ваш Steam ID.</p>
+      </div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="script.js"></script>
 </body>
