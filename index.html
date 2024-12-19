@@ -24,6 +24,7 @@
             border-radius: 8px;
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         h1 {
@@ -47,11 +48,33 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            width: 100%;
+             width: 100%;
+            margin-bottom: 10px;
         }
 
         button:hover {
             background-color: #45a049;
+        }
+
+         #steamInfo {
+            margin-top: 15px;
+             text-align: center;
+         }
+
+         #steamInfo img {
+             width: 100px;
+              height: 100px;
+             border-radius: 50%;
+         }
+
+          #confirmButton {
+            display: none;
+            background-color: #007bff;
+           margin-top: 15px;
+           }
+
+          #confirmButton:hover {
+            background-color: #0056b3;
         }
 
         #result {
@@ -59,6 +82,8 @@
             text-align: center;
             font-weight: bold;
         }
+
+
     </style>
 </head>
 <body>
@@ -67,6 +92,8 @@
         <input type="text" id="steamIdInput" placeholder="Введите Steam ID">
         <button id="checkButton">Проверить</button>
         <div id="result"></div>
+        <div id="steamInfo"></div>
+        <button id="confirmButton">Это мой аккаунт</button>
     </div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="script.js"></script>
