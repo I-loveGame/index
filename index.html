@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam ID Input</title>
+    <title>Отправка сообщения в Telegram</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -16,22 +16,26 @@
             color: white;
             margin: 0;
             padding: 20px; /* Добавляет отступы */
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
         }
-
         h1 {
             font-size: 28px;
             margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
-
         .input-container {
-           display: flex;
-           flex-direction: column;
-           width: 100%;
-           max-width: 400px;
-           align-items: center;
-           margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px;
+            align-items: center;
+            margin-bottom: 30px;
+            background-color: #1E1E1E;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
-
         input {
             padding: 12px;
             font-size: 18px;
@@ -43,8 +47,11 @@
             outline: none;
             margin-bottom: 15px; /* Расстояние между input и кнопкой */
             box-sizing: border-box; /* Чтобы padding не увеличивал ширину */
+            transition: border-color 0.3s ease;
         }
-
+        input:focus {
+            border-color: #1b74e4; /* Цвет рамки при фокусе */
+        }
         button {
             background-color: #1b74e4;
             color: white;
@@ -58,13 +65,10 @@
         button:hover {
             background-color: #0f5cb6;
         }
-
         button:disabled {
             background-color: #555;
             cursor: not-allowed;
         }
-
-
         #successMessage {
             display: none;
             font-size: 20px;
@@ -74,44 +78,43 @@
     </style>
 </head>
 <body>
-    <h1>Введите свой Steam ID</h1>
+    <h1>Введите ваше сообщение</h1>
     <div class="input-container">
-        <input type="text" id="steamIdInput" placeholder="Введите Steam ID (17 цифр)">
+        <input type="text" id="textInput" placeholder="Введите сообщение...">
         <button id="sendButton">Отправить</button>
     </div>
-    <div id="successMessage">✅ Steam ID успешно отправлен!</div>
-
+    <div id="successMessage">✅ Сообщение успешно отправлено!</div>
     <script>
         const tg = window.Telegram ? window.Telegram.WebApp : null;
-
         if (tg) {
-             tg.ready();
-             console.log("WebApp API is assumed to be available.");
+            tg.ready();
+            console.log("WebApp API is assumed to be available.");
         } else {
             console.log("Telegram WebApp API might not be available");
         }
         const sendButton = document.getElementById("sendButton");
         const successMessage = document.getElementById("successMessage");
-        const steamIdInput = document.getElementById("steamIdInput");
-         console.log("sendButton:", sendButton);
-         console.log("steamIdInput:", steamIdInput);
+        const textInput = document.getElementById("textInput");
+
         sendButton.addEventListener("click", () => {
-             console.log("Кнопка отправки нажата!");
-            const steamId = steamIdInput.value.trim();
-              if (steamId.length === 17 && !isNaN(steamId)) {
-                const data = { steam_id: steamId };
+            console.log("Кнопка отправки нажата!");
+            const message = textInput.value.trim();
+            if (message.length > 0) {
+                const data = { message: message };
                 const jsonString = JSON.stringify(data);
                 if (tg) {
                     tg.sendData(jsonString); // Отправляем данные в Telegram
                     sendButton.disabled = true;
                     successMessage.style.display = "block";
+                    textInput.value = ''; // Очищаем поле ввода
                 } else {
                     alert("⚠️ Не удалось подключиться к Telegram Web App.");
                 }
             } else {
-                alert("⚠️ Введите корректный Steam ID (17 цифр).");
+                alert("⚠️ Пожалуйста, введите сообщение.");
             }
-         });
+        });
     </script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>  
 </body>
 </html>
