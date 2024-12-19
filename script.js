@@ -7,56 +7,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const tg = window.Telegram.WebApp;
 
     checkButton.addEventListener('click', async () => {
-         const steamId = steamIdInput.value.trim();
-          if (steamId) {
-               if (!/^[0-9]{17}$/.test(steamId)) {
-                 resultDiv.textContent = 'Неверный формат Steam ID. Должно быть 17 цифр.';
+        const steamId = steamIdInput.value.trim();
+        if (steamId) {
+            if (!/^[0-9]{17}$/.test(steamId)) {
+                resultDiv.textContent = 'Неверный формат Steam ID. Должно быть 17 цифр.';
                 return;
-               }
-               resultDiv.textContent = "Загрузка информации об аккаунте..."
-               try {
-                const response = await fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&steamids=${steamId}`);
-
-                if (!response.ok) {
-                  throw new Error(`HTTP error! status: ${response.status}`);
-                }
+            }
+            resultDiv.textContent = "Загрузка информации об аккаунте...";
+            try {
+                 const response = await fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=YOUR_STEAM_API_KEY&steamids=${steamId}`);
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                 }
 
                 const data = await response.json();
-                  if (data && data.response && data.response.players && data.response.players.length > 0) {
+                 if (data && data.response && data.response.players && data.response.players.length > 0) {
                     const player = data.response.players[0];
                     steamInfoDiv.innerHTML = `
-                        <img src="${player.avatarfull}" alt="Аватарка">
-                        <p>Имя: ${player.personaname}</p>
-                        <p>Steam ID: ${player.steamid}</p>
+                         <img src="${player.avatarfull}" alt="Аватарка">
+                         <p>Имя: ${player.personaname}</p>
+                         <p>Steam ID: ${player.steamid}</p>
                         <p>Это ваш аккаунт?</p>
                     `;
-                  confirmButton.style.display = 'block';
-                  resultDiv.textContent = ""; //очищаем сообщение
+                    confirmButton.style.display = 'block';
+                    resultDiv.textContent = ""; //очищаем сообщение
                 } else {
                   resultDiv.textContent = 'Аккаунт не найден';
                   steamInfoDiv.innerHTML = "";
                   confirmButton.style.display = "none";
-                 }
-            }
-                catch (error){
-                      resultDiv.textContent = `Ошибка получения данных: ${error.message}`
-                     console.error('Ошибка получения данных:', error);
-                    steamInfoDiv.innerHTML = "";
-                     confirmButton.style.display = "none";
 
                  }
-            }
-           else{
-                 resultDiv.textContent = 'Введите Steam ID.';
+            }  catch (error) {
+                 resultDiv.textContent = `Ошибка получения данных: ${error.message}`
+                 console.error('Ошибка получения данных:', error);
+                steamInfoDiv.innerHTML = "";
+                confirmButton.style.display = "none";
            }
+        } else {
+             resultDiv.textContent = 'Введите Steam ID.';
+        }
     });
 
-    confirmButton.addEventListener('click', () => {
+     confirmButton.addEventListener('click', () => {
         const steamId = steamIdInput.value.trim();
         const data = { steamId: steamId };
-         const jsonString = JSON.stringify(data);
+        const jsonString = JSON.stringify(data);
         console.log('Sending data:', jsonString);
-        tg.sendData(jsonString)
+        tg.sendData(jsonString);
         resultDiv.textContent = "Отправлено!";
         confirmButton.style.display = 'none';
         checkButton.disabled = true;
