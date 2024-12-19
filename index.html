@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam ID Checker</title>
     <style>
-        body {
+         body {
             font-family: sans-serif;
             display: flex;
             flex-direction: column;
@@ -15,9 +15,10 @@
             background-color: #f0f0f0;
             margin: 0;
             padding: 20px;
-            transition: opacity 0.3s ease; /* Добавляем анимацию */
+            transition: opacity 0.3s ease;
         }
-          #container {
+
+        #container {
             width: 300px;
             padding: 20px;
             border: 1px solid #ccc;
@@ -25,10 +26,12 @@
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
-            transition: transform 0.3s ease; /* Добавляем анимацию */
+            transition: transform 0.3s ease;
+             position: relative; /* Add relative positioning */
+
         }
 
-        h1 {
+         h1 {
             text-align: center;
             margin-bottom: 15px;
         }
@@ -58,43 +61,50 @@
         }
 
         #steamInfo {
-             margin-top: 15px;
+            margin-top: 15px;
             text-align: center;
             opacity: 0;
             transition: opacity 0.3s ease;
-
         }
-          #instructionButton {
-           position: absolute;
+
+        #instructionButton {
+            position: absolute;
             top: 10px;
-            right: 10px;
+            right: 10px; /* change position*/
             background: none;
-             border: none;
+            border: none;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 22px;
+            color: #007bff; /* Blue color */
+             /* Add a hover effect for visibility */
+           opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        #instructionButton:hover{
+          opacity: 1;
+        }
+
+         #backButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+             font-size: 18px;
+             display: none;
          }
 
-        #backButton {
-          position: absolute;
-            top: 10px;
-           left: 10px;
-            background: none;
-             border: none;
-             cursor: pointer;
-            font-size: 18px;
-            display: none;
-        }
-
-        #backButton:hover, #instructionButton:hover {
-            opacity: 0.8;
+        #backButton:hover {
+             opacity: 0.8;
         }
 
 
         .instruction-screen {
-            display: none;
+           display: none;
             position: absolute;
             top: 0;
-            left: 0;
+           left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(255, 255, 255, 0.95);
@@ -102,7 +112,8 @@
             overflow-y: auto;
            text-align: center;
         }
-        .instruction-screen p{
+
+       .instruction-screen p{
            margin-top: 20px;
         }
 
@@ -112,27 +123,27 @@
             font-weight: bold;
         }
 
+
     </style>
 </head>
 <body>
     <button id="backButton">&larr;</button>
-    <button id="instructionButton">?</button>
-
     <div id="container">
+         <button id="instructionButton">?</button>
           <h1>Проверка Steam ID</h1>
          <input type="text" id="steamIdInput" placeholder="Введите Steam ID">
-          <button id="checkButton">Проверить</button>
-           <div id="result"></div>
-        <div id="steamInfo"></div>
-    </div>
-    <div class="instruction-screen" id="instructionScreen">
+        <button id="checkButton">Проверить</button>
+        <div id="result"></div>
+       <div id="steamInfo"></div>
+     </div>
+   <div class="instruction-screen" id="instructionScreen">
           <h2>Как найти свой Steam ID</h2>
           <p>1. Запустите Steam клиент.</p>
-         <p>2. Перейдите в "Профиль".</p>
+           <p>2. Перейдите в "Профиль".</p>
            <p>3. Нажмите "Редактировать профиль".</p>
-         <p>4.  Прокрутите вниз до конца.</p>
+          <p>4.  Прокрутите вниз до конца.</p>
          <p>5. Там будет указан ваш Steam ID.</p>
-      </div>
+    </div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="script.js"></script>
 </body>
