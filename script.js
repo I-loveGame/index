@@ -12,31 +12,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const sendButton = document.getElementById("sendButton");
     const textInput = document.getElementById("textInput");
-
     if (sendButton && textInput) {
         sendButton.addEventListener("click", () => {
             console.log("Кнопка 'Отправить' нажата.");
             const text = textInput.value.trim();
             if (text) {
-                const data = { text: text };
-                const jsonString = JSON.stringify(data);
-                console.log("Данные для отправки:", jsonString);
-                if (tg) {
+               const data = { text: text };
+               const jsonString = JSON.stringify(data);
+               console.log("Данные для отправки:", jsonString);
+               if (tg) {
                     tg.sendData(jsonString);
-                     console.log("tg.sendData() вызван!");
+                    console.log("tg.sendData() вызван!");
                 } else {
-                    console.log("Telegram WebApp API is not available.");
+                   console.log("Telegram WebApp API is not available.");
                 }
-
             } else {
-                  console.log("Текст не введен!");
-                  alert("Пожалуйста, введите текст.");
+                console.log("Введите текст");
+                alert("Пожалуйста, введите текст.");
             }
         });
     }
-    else
+     else
      {
         console.error("Кнопка или поле ввода не найдены");
     }
-
 });
