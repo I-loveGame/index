@@ -15,7 +15,12 @@ dp = Dispatcher()
 
 class WebAppDataFilter(Filter):
     async def __call__(self, message: Message, **kwargs) -> Union[bool, Dict[str, Any]]:
-        return dict(web_app_data=message.web_app_data) if message.web_app_data else False
+        if message.web_app_data:
+          print("WebAppDataFilter: True")
+          return dict(web_app_data=message.web_app_data)
+        else:
+          print("WebAppDataFilter: False")
+          return False
 
 # Обработчик команды /start
 @dp.message(CommandStart())
@@ -32,8 +37,14 @@ async def start(message: types.Message):
 # Обработчик данных из Web App
 @dp.message(WebAppDataFilter())
 async def handle_web_app_data(message: types.Message, web_app_data: types.WebAppData):
-     print(f"Получены данные: {web_app_data.data}")
-     await message.answer(f"Получены данные: {web_app_data.data}")
+     print("handle_web_app_data вызван")
+     print(f"web_app_data: {web_app_data}")
+     if web_app_data and web_app_data.data:
+         print(f"Получены данные: {web_app_data.data}")
+         await message.answer(f"Получены данные: {web_app_data.data}")
+     else:
+        print("Нет данных или ошибка!")
+        await message.answer("Нет данных или ошибка!")
 # Запуск бота
 async def main():
     await dp.start_polling(bot)
