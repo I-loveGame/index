@@ -8,9 +8,9 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo, Messa
 from aiogram.filters import CommandStart, Filter
 
 # Токен вашего бота (замените на ваш токен)
-TOKEN = "8063894572:AAHEYweNMTJ-GaUvWXUeH4Cz0bS7uAa8h_I"
+TOKEN = ""
 # Ваш API-ключ Steam (замените на ваш ключ)
-STEAM_API_KEY = "F8A10F215FECA2977A762232DEA544F3"  # Вставьте сюда ваш ключ
+STEAM_API_KEY = ""  # Вставьте сюда ваш ключ
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
