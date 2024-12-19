@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             resultDiv.textContent = "Загрузка информации об аккаунте...";
             try {
-                 const response = await fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=YOUR_STEAM_API_KEY&steamids=${steamId}`);
+                 const response = await fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=F8A10F215FECA2977A762232DEA544F3&steamids=${steamId}`);
                   if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                  }
