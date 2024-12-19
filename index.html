@@ -102,8 +102,9 @@
             if (message.length > 0) {
                 const data = { message: message };
                 const jsonString = JSON.stringify(data);
+                console.log("Отправляемые данные:", jsonString); // Логируем данные
                 if (tg) {
-                    tg.sendData(jsonString); // Отправляем данные в Telegram
+                    tg.sendData(jsonString);
                     sendButton.disabled = true;
                     successMessage.style.display = "block";
                     textInput.value = ''; // Очищаем поле ввода
