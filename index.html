@@ -18,36 +18,67 @@
             padding: 20px;
             box-sizing: border-box;
         }
+        .container {
+          width: 100%;
+          max-width: 500px;
+          padding: 30px;
+          background-color: #2b2b2b;
+          border-radius: 15px;
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+          text-align: center;
+        }
+         h1 {
+          margin-bottom: 30px;
+          color: #eee;
+         }
+         input {
+          padding: 12px 15px;
+          margin-bottom: 15px;
+          font-size: 16px;
+          border: 1px solid #444;
+          border-radius: 8px;
+          background-color: #333;
+          color: #fff;
+          outline: none;
+          box-sizing: border-box;
+         }
+        input::placeholder {
+           color: #999;
+         }
+       button {
+         background-color: #1e90ff;
+         color: #fff;
+         border: none;
+         border-radius: 8px;
+         padding: 12px 20px;
+         font-size: 18px;
+         cursor: pointer;
+         transition: background-color 0.3s ease;
+         width: 100%;
+       }
+      button:hover {
+          background-color: #0f73d9;
+       }
+
+        button:disabled {
+          background-color: #555;
+          cursor: not-allowed;
+      }
+        #successMessage {
+            display: none;
+            font-size: 20px;
+            color: #4CAF50;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-        <h1>Введите текст</h1>
-        <input type="text" id="textInput" placeholder="Введите что-нибудь">
-        <button id="sendButton">Отправить</button>
-       <script>
-       const tg = window.Telegram ? window.Telegram.WebApp : null;
-
-        if (tg) {
-             tg.ready();
-             console.log("WebApp API is assumed to be available.");
-        } else {
-            console.log("Telegram WebApp API might not be available");
-        }
-
-        const sendButton = document.getElementById("sendButton");
-        const textInput = document.getElementById("textInput");
-
-        sendButton.addEventListener("click", () => {
-            const text = textInput.value.trim();
-                const data = { text: text };
-                const jsonString = JSON.stringify(data);
-                 if (tg) {
-                      tg.sendData(jsonString);
-                      console.log("Отправлены данные:", jsonString);
-                  } else {
-                     console.log("Data would be sent, but WebApp API not available.");
-                  }
-           });
-       </script>
+     <div class="container">
+         <h1>Введите текст</h1>
+         <input type="text" id="textInput" placeholder="Введите что-нибудь">
+         <button id="sendButton">Отправить</button>
+     </div>
+     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+     <script src="script.js"></script>
 </body>
 </html>
