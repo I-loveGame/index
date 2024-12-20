@@ -23,19 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
      });
     }
 
-     if (backButton){
-         backButton.addEventListener('click', () => {
+    if (backButton) {
+        backButton.addEventListener('click', () => {
             if (container && instructionScreen) {
                 instructionScreen.classList.remove('slide-in');
-                 setTimeout(() => {
-                    container.classList.remove('slide-out');
-                   instructionScreen.style.display = 'none';
-                   backButton.style.display = 'none';
-                 }, 300);
-
-           }
+                instructionScreen.classList.add('slide-out'); // Добавляем класс для анимации выхода
+                setTimeout(() => {
+                    instructionScreen.style.display = 'none';
+                    backButton.style.display = 'none';
+                    container.classList.remove('slide-out'); // Убираем класс для контейнера
+                }, 300); // Время должно совпадать с длительностью анимации
+            }
         });
-     }
+    }
 
     checkButton.addEventListener('click', () => {
         const steamId = steamIdInput.value.trim();
