@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const tg = window.Telegram.WebApp;
 
-    if (instructionButton) { // Check if instructionButton exists
+    if (instructionButton) {
     instructionButton.addEventListener('click', () => {
         if (container && instructionScreen && backButton) {
          container.classList.add('slide-out');
@@ -23,20 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
      });
     }
 
-     if (backButton){ //check if backButton exists
+     if (backButton){
          backButton.addEventListener('click', () => {
             if (container && instructionScreen) {
                 instructionScreen.classList.remove('slide-in');
-                setTimeout(() => {
+                 setTimeout(() => {
                     container.classList.remove('slide-out');
-                    instructionScreen.style.display = 'none';
+                   instructionScreen.style.display = 'none';
                    backButton.style.display = 'none';
                  }, 300);
+
            }
         });
      }
-
-
 
     checkButton.addEventListener('click', () => {
         const steamId = steamIdInput.value.trim();
