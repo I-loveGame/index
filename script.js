@@ -11,38 +11,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const tg = window.Telegram.WebApp;
 
     if (instructionButton) {
-    instructionButton.addEventListener('click', () => {
-        if (container && instructionScreen && backButton) {
-         container.classList.add('slide-out');
-        instructionScreen.style.display = 'block';
-        backButton.style.display = 'block';
-        setTimeout(() => {
-            instructionScreen.classList.add('slide-in');
-        }, 0);
-         }
-     });
+        instructionButton.addEventListener('click', () => {
+            if (container && instructionScreen && backButton) {
+                container.classList.add('slide-out');
+                instructionScreen.style.display = 'block';
+                backButton.style.display = 'block';
+                setTimeout(() => {
+                    instructionScreen.classList.add('slide-in');
+                }, 0);
+            }
+        });
     }
 
     if (backButton) {
         backButton.addEventListener('click', () => {
             if (container && instructionScreen) {
-                instructionScreen.classList.remove('slide-in');
-                instructionScreen.classList.add('slide-out'); // Добавляем класс для анимации выхода
+                 instructionScreen.classList.remove('slide-in');
+                 container.classList.remove('slide-out');
+
                 setTimeout(() => {
-                    instructionScreen.style.display = 'none';
-                    backButton.style.display = 'none';
-                    container.classList.remove('slide-out'); // Убираем класс для контейнера
-                }, 300); // Время должно совпадать с длительностью анимации
+                   instructionScreen.style.display = 'none';
+                   backButton.style.display = 'none';
+                }, 300);
             }
         });
     }
+
 
     checkButton.addEventListener('click', () => {
         const steamId = steamIdInput.value.trim();
         if (steamId) {
             if (!/^[0-9]{17}$/.test(steamId)) {
-                 resultDiv.textContent = 'Неверный формат Steam ID. Должно быть 17 цифр.';
-                 return;
+                resultDiv.textContent = 'Неверный формат Steam ID. Должно быть 17 цифр.';
+                return;
             }
             const data = { steamId };
             const jsonString = JSON.stringify(data);
