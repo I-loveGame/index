@@ -1,47 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam ID Checker</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container" id="container">
-        <h2>Проверка Steam ID</h2>
-        <div class="input-group">
-            <label for="steamIdInput">Введите Steam ID (17 цифр):</label>
-            <input type="text" id="steamIdInput" placeholder="765xxxxxxxxxxxxx">
+    <div id="container">
+         <div id="instructionTab" class="instruction-tab">
+              <button id="instructionButton" class="instruction-button">?</button>
         </div>
+          <h1>Проверка Steam ID</h1>
+         <input type="text" id="steamIdInput" placeholder="Введите Steam ID">
         <button id="checkButton">Проверить</button>
         <div id="result"></div>
+       <div id="steamInfo"></div>
     </div>
-     <div id="instructionTab">
-       <button id="instructionButton">Инструкция</button>
-     </div>
-     <div id="instructionScreen">
-       <div class="instruction-content">
-         <h3>Инструкция</h3>
-          <p>1. Введите свой Steam ID в поле ввода.</p>
-           <p>2. Нажмите кнопку "Проверить".</p>
-            <p>3. Бот отправит запрос на сервер.</p>
-         </div>
-       </div>
-
-    <div id="emptyScreen">
-        <button id="avatarButton"></button>
+   <div class="instruction-screen" id="instructionScreen">
+          <h2>Как найти свой Steam ID</h2>
+          <p>1. Запустите Steam клиент.</p>
+          <p>2. Перейдите в "Профиль".</p>
+          <p>3. Нажмите "Редактировать профиль".</p>
+          <p>4. Прокрутите вниз до конца.</p>
+          <p>5. Там будет указан ваш Steam ID.</p>
+   </div>
+      <div id="emptyScreen" style="display: none;">
+          <p>Вы уже отправили свой Steam ID.</p>
     </div>
-  <div id="accountInfoScreen">
-        <div class="account-info-content">
-            <button class="close-button" id="closeAccountButton">×</button>
-            <p id="accountName">Имя: </p>
-             <p id="realName">Реальное имя: </p>
-            <p id="accountSteamId">Steam ID: </p>
-            <p id="accountGames">Кол-во игр: </p>
-        </div>
-    </div>
-
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="script.js"></script>
 </body>
-</html>
