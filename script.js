@@ -10,24 +10,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const tg = window.Telegram.WebApp;
 
-
+    if (instructionButton) { // Check if instructionButton exists
     instructionButton.addEventListener('click', () => {
-        container.classList.add('slide-out');
+        if (container && instructionScreen && backButton) {
+         container.classList.add('slide-out');
         instructionScreen.style.display = 'block';
         backButton.style.display = 'block';
         setTimeout(() => {
             instructionScreen.classList.add('slide-in');
-            }, 0);
+        }, 0);
+         }
      });
+    }
 
-     backButton.addEventListener('click', () => {
-         instructionScreen.classList.remove('slide-in');
-        setTimeout(() => {
-            container.classList.remove('slide-out');
-            instructionScreen.style.display = 'none';
-            backButton.style.display = 'none';
-            }, 300);
-    });
+     if (backButton){ //check if backButton exists
+         backButton.addEventListener('click', () => {
+            if (container && instructionScreen) {
+                instructionScreen.classList.remove('slide-in');
+                setTimeout(() => {
+                    container.classList.remove('slide-out');
+                    instructionScreen.style.display = 'none';
+                   backButton.style.display = 'none';
+                 }, 300);
+           }
+        });
+     }
 
 
 
