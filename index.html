@@ -7,23 +7,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button id="backButton" class="back-button">&larr;</button>
     <div id="container">
-         <button id="instructionButton" class="instruction-button">?</button>
+         <div id="instructionTab" class="instruction-tab">
+              <button id="instructionButton" class="instruction-button">?</button>
+        </div>
           <h1>Проверка Steam ID</h1>
          <input type="text" id="steamIdInput" placeholder="Введите Steam ID">
         <button id="checkButton">Проверить</button>
         <div id="result"></div>
        <div id="steamInfo"></div>
-     </div>
+    </div>
    <div class="instruction-screen" id="instructionScreen">
           <h2>Как найти свой Steam ID</h2>
           <p>1. Запустите Steam клиент.</p>
-           <p>2. Перейдите в "Профиль".</p>
-           <p>3. Нажмите "Редактировать профиль".</p>
-          <p>4.  Прокрутите вниз до конца.</p>
-         <p>5. Там будет указан ваш Steam ID.</p>
-    </div>
+          <p>2. Перейдите в "Профиль".</p>
+          <p>3. Нажмите "Редактировать профиль".</p>
+          <p>4. Прокрутите вниз до конца.</p>
+          <p>5. Там будет указан ваш Steam ID.</p>
+   </div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="script.js"></script>
 </body>
